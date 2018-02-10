@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">PixFormance</string>
+
+    <string name="movie_doesnot_exist">The movie you entered does not exist, Please enter the right name.</string>
+
+    <string name="internet_error">Failed to connect to internet</string>
+    <string name="try_again">Try Again !</string>
+    <string name="unknown_error">Something went wrong !!</string>
+
+    <string name="transition_name">myTransition</string>
+</resources>

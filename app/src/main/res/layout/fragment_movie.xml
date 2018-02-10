@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/nav_unselected"
+    android:transitionName="@string/transition_name">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/search_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/recycler_view_margin"
+        android:layout_marginRight="@dimen/recycler_view_margin"
+        android:layout_marginTop="@dimen/recycler_view_margin"
+        android:elevation="@dimen/card_view_elevation">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/movie_search_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".8"
+                android:hint="enter your movie" />
+
+            <ImageView
+                android:id="@+id/movie_search_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".2"
+                android:layout_gravity="center"
+                android:src="@android:drawable/ic_menu_search" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <include
+        android:id="@+id/no_movie_found"
+        layout="@layout/movie_not_exist_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_bar_layout"
+        android:visibility="gone"
+        android:layout_margin="@dimen/recycler_view_margin"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/movies_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_bar_layout"
+        android:layout_margin="@dimen/recycler_view_margin" />
+
+    <include
+        android:id="@+id/v_reload"
+        layout="@layout/custom_reload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_bar_layout"
+        android:visibility="gone"
+        android:layout_margin="@dimen/recycler_view_margin"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_bar"
+        android:visibility="gone" />
+
+</RelativeLayout>
