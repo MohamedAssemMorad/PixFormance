@@ -1,4 +1,4 @@
-package com.example.qrdz4162.pixformance.movies;
+package com.example.qrdz4162.pixformance.movies.presenter;
 
 import com.example.qrdz4162.pixformance.movies.model.MovieListRepo;
 import com.example.qrdz4162.pixformance.movies.model.entitiy.MovieItem;
@@ -23,40 +23,36 @@ import static org.mockito.Mockito.when;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.schedulers.TestScheduler;
 
 /**
  * Created by qrdz4162 on 2/10/2018.
  */
-@RunWith(MockitoJUnitRunner.Silent.class)
+@RunWith(MockitoJUnitRunner.class)
 public class MoviePresenterTest {
 
     @Mock
-    MovieView movieViewTest;
+    MovieView movieViewTest; //mocking the view layer
 
     @Mock
-    MovieListRepo movieListRepoTest;
+    MovieListRepo movieListRepoTest; //mocking the model layer
 
     @Mock
     List<MovieItem> movieItems;
 
-    @Mock
-    MovieResponse movieResponseTest;
+    TestScheduler testScheduler;
 
     private MoviePresenter moviePresenterTest;
 
 
-    @BeforeClass
-    public static void onlyOnce() throws Exception {
-    }
-
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        moviePresenterTest = new MoviePresenterImp(movieViewTest, movieListRepoTest,null);
-        Schedulers.trampoline();
-        Schedulers.trampoline();
 
-        moviePresenterTest.onViewAttached(movieViewTest);
+        // Mock scheduler using RxJava TestScheduler
+        testScheduler = new TestScheduler();
+
+        moviePresenterTest = new MoviePresenterImp(movieViewTest, movieListRepoTest,testScheduler , testScheduler);
     }
 
     @Test
@@ -64,12 +60,11 @@ public class MoviePresenterTest {
         String searchInputTest = "Batman";
 
         when(movieListRepoTest.getMovies(searchInputTest)).thenReturn(Observable.just(movieItems));
-        movieListRepoTest.getMovies(searchInputTest);
         moviePresenterTest.loadMovies(searchInputTest);
+        testScheduler.triggerActions();
 
-        verify(movieViewTest).showProgressLoading();
-//        verify(movieViewTest).hideProgressLoading();
-
+// verify(movieViewTest).hideProgressLoading();
+// verify(movieViewTest).showProgressLoading();
     }
 
 }

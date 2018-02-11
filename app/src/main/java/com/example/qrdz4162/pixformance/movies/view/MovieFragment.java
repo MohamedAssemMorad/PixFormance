@@ -39,6 +39,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnItemClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by qrdz4162 on 2/7/2018.
@@ -112,6 +114,7 @@ public class MovieFragment extends BaseFragment implements MovieView, MovieListA
     @OnItemClick(R.id.listview)
     public void onSearchItemClick(int position){
         KeyboardUtils.hideSoftKeyboard(getActivity());
+        movie_search_et.clearFocus();
         searchListView.setVisibility(View.GONE);
         moviePresenter.loadMovies(adapter.getItem(position).getQueryName());
     }
@@ -129,12 +132,16 @@ public class MovieFragment extends BaseFragment implements MovieView, MovieListA
     @OnClick(R.id.movie_search_button)
     public void getSearchMovie(){
         KeyboardUtils.hideSoftKeyboard(getActivity());
+        movie_search_et.clearFocus();
         movieName = movie_search_et.getText().toString().trim();
         moviePresenter.loadMovies(movieName);
     }
 
     private void initializePresenter() {
-        moviePresenter = new MoviePresenterImp(this, Injection.provideMovieListRepo(PixFormanceApp.getInstance()));
+        moviePresenter = new MoviePresenterImp(this,
+                Injection.provideMovieListRepo(PixFormanceApp.getInstance()),
+                Schedulers.io(),
+                AndroidSchedulers.mainThread());
     }
 
     @Override

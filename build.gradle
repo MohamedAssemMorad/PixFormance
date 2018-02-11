@@ -37,6 +37,8 @@ ext {
     butterKnife = "8.8.1"
     jUnitVersion = '4.12'
     mockitoVersion = '2.7.1'
+    espressoCore = '2.2.2'
+    testRunner = '0.5'
 
 }
 

@@ -14,6 +14,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
@@ -33,12 +34,16 @@ public class MoviePresenterImp implements MoviePresenter{
     private MovieView movieView;
     private MovieListRepo movieListRepo;
     private CompositeDisposable mCompositeDisposable;
+    Scheduler processScheduler;
+    Scheduler androidScheduler;
     private boolean isViewAttached;
 
-    public MoviePresenterImp (MovieView movieView, MovieListRepo movieListRepo){
+    public MoviePresenterImp (MovieView movieView, MovieListRepo movieListRepo,Scheduler processScheduler, Scheduler androidScheduler){
         this.movieView = movieView;
         this.movieListRepo = movieListRepo;
         mCompositeDisposable = new CompositeDisposable();
+        this.processScheduler = processScheduler;
+        this.androidScheduler = androidScheduler;
     }
 
     @Override
@@ -47,8 +52,8 @@ public class MoviePresenterImp implements MoviePresenter{
         movieView.showProgressLoading();
 
         Disposable disposable = movieListRepo.getMovies(searchInput)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(processScheduler)
+                .observeOn(androidScheduler)
                 .subscribeWith(new DisposableObserver<List<MovieItem>>() {
                     @Override
                     public void onNext(@NonNull List<MovieItem> movieItems) {
