@@ -3,6 +3,7 @@ package com.example.qrdz4162.pixformance.moviedetails.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,7 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
     public void backToMovieList(){
         getActivity().finish();
     }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

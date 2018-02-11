@@ -1,5 +1,8 @@
 package com.example.qrdz4162.pixformance.movies.model.entitiy;
 
+import java.security.Timestamp;
+import java.util.Date;
+
 import io.realm.RealmObject;
 
 /**
@@ -13,6 +16,16 @@ public class SearchQuery extends RealmObject{
     }
 
     private String queryName;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    private Date date;
 
     public SearchQuery() {}
 

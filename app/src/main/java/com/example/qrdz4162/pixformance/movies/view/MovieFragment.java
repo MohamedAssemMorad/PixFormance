@@ -29,6 +29,7 @@ import com.example.qrdz4162.pixformance.movies.model.entitiy.SearchQuery;
 import com.example.qrdz4162.pixformance.movies.presenter.MoviePresenter;
 import com.example.qrdz4162.pixformance.movies.presenter.MoviePresenterImp;
 import com.example.qrdz4162.pixformance.utils.DialogUtils;
+import com.example.qrdz4162.pixformance.utils.KeyboardUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,12 +111,15 @@ public class MovieFragment extends BaseFragment implements MovieView, MovieListA
 
     @OnItemClick(R.id.listview)
     public void onSearchItemClick(int position){
+        KeyboardUtils.hideSoftKeyboard(getActivity());
+        searchListView.setVisibility(View.GONE);
         moviePresenter.loadMovies(adapter.getItem(position).getQueryName());
     }
 
 
     @OnFocusChange(R.id.movie_search_et)
     public void getRecentSearchQueries(){
+        searchListView.setVisibility(View.VISIBLE);
         arraylist = moviePresenter.getRecentQueries();
         adapter = new SearchViewAdapter(getActivity(), arraylist);
         searchListView.setAdapter(adapter);
@@ -124,6 +128,7 @@ public class MovieFragment extends BaseFragment implements MovieView, MovieListA
 
     @OnClick(R.id.movie_search_button)
     public void getSearchMovie(){
+        KeyboardUtils.hideSoftKeyboard(getActivity());
         movieName = movie_search_et.getText().toString().trim();
         moviePresenter.loadMovies(movieName);
     }
