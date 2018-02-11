@@ -1,7 +1,9 @@
 package com.example.qrdz4162.pixformance.movies.model.repo;
 
 import com.example.qrdz4162.pixformance.movies.model.entitiy.MovieItem;
+import com.example.qrdz4162.pixformance.movies.model.entitiy.SearchQuery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -18,4 +20,6 @@ public interface MovieListDataSource {
      * @return returns list of MovieItem
      */
     Observable<List<MovieItem>> getMovies(String searchInput);
+    ArrayList<SearchQuery> getRecentQueries();
+    void addQueryToDB(String query);
 }

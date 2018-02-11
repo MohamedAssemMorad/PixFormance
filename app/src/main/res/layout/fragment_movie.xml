@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/nav_unselected"
-    android:transitionName="@string/transition_name">
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+   >
 
     <android.support.v7.widget.CardView
         android:id="@+id/search_bar_layout"
@@ -25,7 +27,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".8"
-                android:hint="enter your movie" />
+                android:hint="enter your movie"
+                android:textColorHint="@color/divider"/>
 
             <ImageView
                 android:id="@+id/movie_search_button"
@@ -39,14 +42,14 @@
 
     </android.support.v7.widget.CardView>
 
-    <include
-        android:id="@+id/no_movie_found"
-        layout="@layout/movie_not_exist_view"
-        android:layout_width="match_parent"
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/search_bar_layout"
-        android:visibility="gone"
-        android:layout_margin="@dimen/recycler_view_margin"/>
+        android:layout_marginLeft="@dimen/recycler_view_margin"
+        android:layout_marginRight="@dimen/recycler_view_margin"
+        android:layout_below="@+id/search_bar_layout" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/movies_recycler_view"

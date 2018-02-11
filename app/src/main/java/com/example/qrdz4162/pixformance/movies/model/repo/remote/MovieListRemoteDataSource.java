@@ -1,11 +1,14 @@
-package com.example.qrdz4162.pixformance.movies.model.repo;
+package com.example.qrdz4162.pixformance.movies.model.repo.remote;
 
 import com.example.qrdz4162.pixformance.application.PixFormanceApp;
 import com.example.qrdz4162.pixformance.movies.model.entitiy.MovieItem;
 import com.example.qrdz4162.pixformance.movies.model.entitiy.MovieResponse;
+import com.example.qrdz4162.pixformance.movies.model.entitiy.SearchQuery;
+import com.example.qrdz4162.pixformance.movies.model.repo.MovieListDataSource;
 import com.example.qrdz4162.pixformance.network.RetrofitClient;
 import com.example.qrdz4162.pixformance.network.service.MovieApiService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -51,5 +54,15 @@ public class MovieListRemoteDataSource implements MovieListDataSource {
                         return movieResponse.getResults();
                     }
                 });
+    }
+
+    @Override
+    public ArrayList<SearchQuery> getRecentQueries() {
+        return null;
+    }
+
+    @Override
+    public void addQueryToDB(String query) {
+
     }
 }

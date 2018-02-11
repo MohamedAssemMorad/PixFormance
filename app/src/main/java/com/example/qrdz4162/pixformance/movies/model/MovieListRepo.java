@@ -1,8 +1,12 @@
 package com.example.qrdz4162.pixformance.movies.model;
 
+import android.content.Context;
+
 import com.example.qrdz4162.pixformance.movies.model.entitiy.MovieItem;
+import com.example.qrdz4162.pixformance.movies.model.entitiy.SearchQuery;
 import com.example.qrdz4162.pixformance.movies.model.repo.MovieListDataSource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -15,10 +19,12 @@ public class MovieListRepo implements MovieListDataSource{
 
     private static MovieListRepo INSTANCE = null;
     private final MovieListDataSource movieListRemoteDataSource;
+    private final MovieListDataSource searchQueryLocalDataSource;
 
     // Prevent direct instantiation.
-    private MovieListRepo(MovieListDataSource movieListRemoteDataSource) {
+    private MovieListRepo(MovieListDataSource movieListRemoteDataSource, MovieListDataSource searchQueryLocalDataSource) {
         this.movieListRemoteDataSource = movieListRemoteDataSource;
+        this.searchQueryLocalDataSource = searchQueryLocalDataSource;
     }
 
     /**
@@ -27,9 +33,10 @@ public class MovieListRepo implements MovieListDataSource{
      * @param movieListRemoteDataSource the backend data source
      * @return the {@link MovieListRepo} instance
      */
-    public static MovieListRepo getInstance(MovieListDataSource movieListRemoteDataSource) {
+    public static MovieListRepo getInstance(MovieListDataSource movieListRemoteDataSource,
+                                            MovieListDataSource searchQueryLocalDataSource) {
         if (INSTANCE == null) {
-            INSTANCE = new MovieListRepo(movieListRemoteDataSource);
+            INSTANCE = new MovieListRepo(movieListRemoteDataSource, searchQueryLocalDataSource);
         }
         return INSTANCE;
     }
@@ -38,5 +45,15 @@ public class MovieListRepo implements MovieListDataSource{
     @Override
     public Observable<List<MovieItem>> getMovies(String searchInput) {
         return movieListRemoteDataSource.getMovies(searchInput);
+    }
+
+    @Override
+    public ArrayList<SearchQuery> getRecentQueries() {
+        return searchQueryLocalDataSource.getRecentQueries();
+    }
+
+    @Override
+    public void addQueryToDB(String query) {
+        searchQueryLocalDataSource.addQueryToDB(query);
     }
 }

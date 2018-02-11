@@ -13,14 +13,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 
 import com.example.qrdz4162.pixformance.R;
+import com.example.qrdz4162.pixformance.application.PixFormanceApp;
 import com.example.qrdz4162.pixformance.base.injection.Injection;
 import com.example.qrdz4162.pixformance.base.view.BaseFragment;
 import com.example.qrdz4162.pixformance.moviedetails.MovieDetails;
 import com.example.qrdz4162.pixformance.movies.adapter.MovieListAdapter;
+import com.example.qrdz4162.pixformance.movies.adapter.SearchViewAdapter;
 import com.example.qrdz4162.pixformance.movies.model.entitiy.MovieItem;
+import com.example.qrdz4162.pixformance.movies.model.entitiy.SearchQuery;
 import com.example.qrdz4162.pixformance.movies.presenter.MoviePresenter;
 import com.example.qrdz4162.pixformance.movies.presenter.MoviePresenterImp;
 import com.example.qrdz4162.pixformance.utils.DialogUtils;
@@ -31,6 +36,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
+import butterknife.OnItemClick;
 
 /**
  * Created by qrdz4162 on 2/7/2018.
@@ -53,10 +60,13 @@ public class MovieFragment extends BaseFragment implements MovieView, MovieListA
     @BindView(R.id.v_reload)
     View mReloadView;
 
-    @BindView(R.id.no_movie_found)
-    View mNoMovieView;
+    @BindView(R.id.listview)
+    ListView searchListView;
 
     String movieName;
+
+    SearchViewAdapter adapter;
+    ArrayList<SearchQuery> arraylist = new ArrayList<SearchQuery>();
 
     // declare product list components
     private RecyclerView.Adapter movieListAdapter;
@@ -98,6 +108,20 @@ public class MovieFragment extends BaseFragment implements MovieView, MovieListA
         initializePresenter();
     }
 
+    @OnItemClick(R.id.listview)
+    public void onSearchItemClick(int position){
+        moviePresenter.loadMovies(adapter.getItem(position).getQueryName());
+    }
+
+
+    @OnFocusChange(R.id.movie_search_et)
+    public void getRecentSearchQueries(){
+        arraylist = moviePresenter.getRecentQueries();
+        adapter = new SearchViewAdapter(getActivity(), arraylist);
+        searchListView.setAdapter(adapter);
+    }
+
+
     @OnClick(R.id.movie_search_button)
     public void getSearchMovie(){
         movieName = movie_search_et.getText().toString().trim();
@@ -105,7 +129,7 @@ public class MovieFragment extends BaseFragment implements MovieView, MovieListA
     }
 
     private void initializePresenter() {
-        moviePresenter = new MoviePresenterImp(this, Injection.provideMovieListRepo());
+        moviePresenter = new MoviePresenterImp(this, Injection.provideMovieListRepo(PixFormanceApp.getInstance()));
     }
 
     @Override
@@ -158,12 +182,11 @@ public class MovieFragment extends BaseFragment implements MovieView, MovieListA
 
         // parse object to send it with intent
         movieDetailsIntent.putExtra("movie_object",new MovieItem(movieList.get(position)));
-
         // make animation when moves to movieDetails screen
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-                v,   // Starting view
-                getString(R.string.transition_name));
-        ActivityCompat.startActivity(getActivity(), movieDetailsIntent, options.toBundle());
+//        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+//                v,   // Starting view
+//                getString(R.string.transition_name));
+//        ActivityCompat.startActivity(getActivity(), movieDetailsIntent, options.toBundle());
         startActivity(movieDetailsIntent);
     }
 

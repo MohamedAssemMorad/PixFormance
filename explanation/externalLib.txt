@@ -1,0 +1,23 @@
+External Lib:
+
+picasso:
+	- Handling ImageView recycling and download cancelation in an adapter.
+	- Complex image transformations with minimal memory use.
+	- Automatic memory and disk caching.
+	
+retrofit: 
+	- use retrofit for network calls and makes downloading JSON or XML data from a web API straightforward. 
+	- parse downloaded data into a Plain Old Java Object (POJO) which must be defined for each "resource" in the response.
+	
+RxJava & RxAndroid:
+	- RxJava and RxAndroid libraries allow us to easily do async processing using principles of functional reactive programming. 
+	
+butterKnife: 
+	- used for easy data binding and simple access to view.
+
+jUnitVersion & mockitoVersion:
+	- used to implement unit test for app.
+	
+Realm:
+	- mobile database that aims at replacing CoreData and SQLite.
+	- ease to use ,too fast.
