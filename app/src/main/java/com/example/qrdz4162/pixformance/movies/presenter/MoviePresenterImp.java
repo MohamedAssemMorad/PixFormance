@@ -1,9 +1,6 @@
 package com.example.qrdz4162.pixformance.movies.presenter;
 
-import android.util.Log;
-
 import com.example.qrdz4162.pixformance.R;
-import com.example.qrdz4162.pixformance.base.presenter.BasePresenter;
 import com.example.qrdz4162.pixformance.base.view.BaseView;
 import com.example.qrdz4162.pixformance.movies.model.MovieListRepo;
 import com.example.qrdz4162.pixformance.movies.model.entitiy.MovieItem;
@@ -54,7 +51,7 @@ public class MoviePresenterImp implements MoviePresenter{
                             if(movieItems.size() > 0)
                                 movieView.loadMovieList(movieItems);
                             else
-                                movieView.loadNoMovieFoundView();
+                                movieView.NoMovieFoundView();
                         }
                     }
 
@@ -83,7 +80,6 @@ public class MoviePresenterImp implements MoviePresenter{
                         // Handle Unknown Exception
                         else {
                             if (isViewAttached) {
-                                Log.e("ssss", throwable.getMessage().toString());
                                 movieView.hideProgressLoading();
                                 movieView.showInlineError(TextUtils.getString(R.string.unknown_error));
                             }

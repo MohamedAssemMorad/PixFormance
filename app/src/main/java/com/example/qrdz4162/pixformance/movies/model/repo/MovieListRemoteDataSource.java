@@ -26,6 +26,7 @@ public class MovieListRemoteDataSource implements MovieListDataSource {
         movieApiService = RetrofitClient.getRetrofitInstance().create(MovieApiService.class);
     }
 
+    // MovieListRemoteDataSource single instance instantiation using singleton design pattern
     public static MovieListRemoteDataSource getInstance(){
         if(movieListDataSource == null){
             movieListDataSource = new MovieListRemoteDataSource();

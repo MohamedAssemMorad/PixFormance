@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -47,11 +51,10 @@ dependencies {
     compile "com.jakewharton:butterknife:$rootProject.butterKnife"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterKnife"
 
-    // fire-base notification library
-    compile 'com.google.firebase:firebase-core:9.2.0'
-    compile 'com.google.firebase:firebase-messaging:9.2.0'
-
     // junit
     testCompile "junit:junit:$rootProject.jUnitVersion"
+    testCompile "org.mockito:mockito-core:$rootProject.ext.mockitoVersion"
+    androidTestCompile 'org.mockito:mockito-android:2.7.1'
+
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

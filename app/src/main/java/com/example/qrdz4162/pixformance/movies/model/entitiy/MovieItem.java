@@ -9,11 +9,19 @@ import com.google.gson.annotations.SerializedName;
  * Created by qrdz4162 on 2/7/2018.
  */
 
+
+/**
+ * MovieItem represent movieItem response and implements Parcelable
+ * to parse object to be able to set in bundle
+ */
 public class MovieItem implements Parcelable{
 
     @SerializedName("vote_count")
     private int vote_count;
 
+    public MovieItem(){}
+
+    // constructor for Parcelable object
     protected MovieItem(Parcel in) {
         vote_count = in.readInt();
         id = in.readInt();

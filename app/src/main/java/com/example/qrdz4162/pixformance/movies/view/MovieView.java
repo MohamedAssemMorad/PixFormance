@@ -11,6 +11,12 @@ import java.util.List;
 
 public interface MovieView extends BaseView{
 
+    /**
+     * @desc display list of movies returned from presenter in recyclerView
+     * @param movies list of MovieItem holds movie data needed
+     */
     void loadMovieList(List<MovieItem> movies);
-    void loadNoMovieFoundView();
+
+    // display msg when list of movies returned is empty (when user enters wrong movie name)
+    void NoMovieFoundView();
 }

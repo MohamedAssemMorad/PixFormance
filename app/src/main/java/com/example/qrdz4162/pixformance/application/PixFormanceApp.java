@@ -7,8 +7,9 @@ import android.app.Application;
  */
 
 public class PixFormanceApp extends Application{
-
+    // API key needed for making requests
     public static final String API_KEY = "2696829a81b1b5827d515ff121700838";
+    // image url
     public static final String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w92";
 
     private static PixFormanceApp pixFormanceApp;

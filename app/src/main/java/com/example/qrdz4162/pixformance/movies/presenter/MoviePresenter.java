@@ -8,5 +8,9 @@ import com.example.qrdz4162.pixformance.base.presenter.BasePresenter;
 
 public interface MoviePresenter extends BasePresenter{
 
+    /**
+     * @desc load movies list from model
+     * @param searchInput string holds user input in search bar
+     */
     void loadMovies(String searchInput);
 }

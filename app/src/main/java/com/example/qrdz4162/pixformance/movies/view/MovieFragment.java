@@ -147,15 +147,19 @@ public class MovieFragment extends BaseFragment implements MovieView, MovieListA
     }
 
     @Override
-    public void loadNoMovieFoundView() {
-        mNoMovieView.setVisibility(View.VISIBLE);
+    public void NoMovieFoundView() {
+        showInlineError(getString(R.string.movie_doesnot_exist));
     }
 
     @Override
     public void onMovieClick(int position, View v) {
 
         Intent movieDetailsIntent = new Intent(getActivity(), MovieDetails.class);
+
+        // parse object to send it with intent
         movieDetailsIntent.putExtra("movie_object",new MovieItem(movieList.get(position)));
+
+        // make animation when moves to movieDetails screen
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
                 v,   // Starting view
                 getString(R.string.transition_name));

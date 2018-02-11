@@ -23,6 +23,9 @@ import butterknife.ButterKnife;
  * Created by qrdz4162 on 2/7/2018.
  */
 
+/**
+ * MovieListAdapter create adapter for movieList holds movieListItem to display in recycler view
+ */
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.DataObjectHolder> {
 
     private ArrayList<MovieItem> mDataSet;

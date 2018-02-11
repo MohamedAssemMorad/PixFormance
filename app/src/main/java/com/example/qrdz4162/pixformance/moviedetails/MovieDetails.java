@@ -34,6 +34,7 @@ public class MovieDetails extends BaseActivity{
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        // receive object holds movie data in intent
         if (getIntent().getExtras() != null) {
             movieItem = getIntent().getExtras().getParcelable("movie_object");
         }

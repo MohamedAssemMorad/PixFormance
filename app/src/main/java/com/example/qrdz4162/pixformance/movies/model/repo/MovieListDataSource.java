@@ -12,5 +12,10 @@ import io.reactivex.Observable;
 
 public interface MovieListDataSource {
 
+    /**
+     * @desc get list of movies from specific repo
+     * @param searchInput string holds user input in search bar
+     * @return returns list of MovieItem
+     */
     Observable<List<MovieItem>> getMovies(String searchInput);
 }
