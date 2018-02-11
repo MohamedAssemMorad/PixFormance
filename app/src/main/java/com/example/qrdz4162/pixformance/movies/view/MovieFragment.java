@@ -133,6 +133,7 @@ public class MovieFragment extends BaseFragment implements MovieView, MovieListA
     public void getSearchMovie(){
         KeyboardUtils.hideSoftKeyboard(getActivity());
         movie_search_et.clearFocus();
+        searchListView.setVisibility(View.GONE);
         movieName = movie_search_et.getText().toString().trim();
         moviePresenter.loadMovies(movieName);
     }
