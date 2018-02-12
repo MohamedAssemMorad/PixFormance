@@ -1,19 +1,21 @@
-package com.example.qrdz4162.pixformance.Splash;
+package com.example.qrdz4162.pixformance.movies;
 
 
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import com.example.qrdz4162.pixformance.R;
-import com.example.qrdz4162.pixformance.movies.MovieActivity;
+import com.example.qrdz4162.pixformance.Splash.SplashScreen;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
@@ -39,9 +41,30 @@ public class MovieActivityTest {
                 allOf(withId(R.id.movie_search_button), isDisplayed()));
         appCompatImageView.perform(click());
 
-        ViewInteraction recyclerView = onView(
-                allOf(withId(R.id.movies_recycler_view), isDisplayed()));
-        recyclerView.perform(actionOnItemAtPosition(0, click()));
+        // sleep for 3 second to see the view
+        waitToRecognize();
+
+        onView(withId(R.id.movies_recycler_view))
+                .perform(RecyclerViewActions.scrollToPosition(3));
+
+
+        // Click on the RecyclerView item at position 2
+        onView(withId(R.id.movies_recycler_view)).
+                perform(RecyclerViewActions.actionOnItemAtPosition(4, click()));
+
+
+        // sleep for 3 second to see the scrolling
+        waitToRecognize();
+
+    }
+
+    private void waitToRecognize() {
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
