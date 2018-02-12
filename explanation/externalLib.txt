@@ -1,19 +1,39 @@
+ brief explanation:
+___________________
+
+Movie app is mobile app which fetches movies from specific API and return list of movies to display in the app.
+First screen is (SplashScreen) which display image for seconds and then goto (MovieList Screen) which have 
+search bar help user to search for movie and return list of movies which matches the user's input, when focus on
+search bar its display the suggestion list for the user, if user click on any suggestion, app will get movies
+related to this suggestion, finally when user clicks on any movie it redirect the user to movie details screen,
+it displays some extra data about this movie.
+
 External Lib:
+_____________
 
 picasso:
 	- Handling ImageView recycling and download cancelation in an adapter.
 	- Complex image transformations with minimal memory use.
 	- Automatic memory and disk caching.
+- usage in app (in MoviesList,MovieDetails screens) used to download image from repo and put it in imageView.
 	
+
 retrofit: 
 	- use retrofit for network calls and makes downloading JSON or XML data from a web API straightforward. 
 	- parse downloaded data into a Plain Old Java Object (POJO) which must be defined for each "resource" in the response.
-	
+- usage in app (in MovieList screen) using to make network call to specified repo and parse returned object.
+
+
+
 RxJava & RxAndroid:
 	- RxJava and RxAndroid libraries allow us to easily do async processing using principles of functional reactive programming. 
 	
+
 butterKnife: 
 	- used for easy data binding and simple access to view.
+- usage in app (all screen) used to bind views.
+
+
 
 jUnitVersion & mockitoVersion:
 	- used to implement unit test for app.
@@ -21,3 +41,28 @@ jUnitVersion & mockitoVersion:
 Realm:
 	- mobile database that aims at replacing CoreData and SQLite.
 	- ease to use ,too fast.
+- usage in app (in MovieList screen) used when click on searchButton to get search queries from DB, and when user
+  focus on edit text it make call to db to return saved queries.
+
+
+
+espressoCore:
+	- used for UI test.
+
+
+
+eventual problems:
+--------------------
+
+1- get recent suggestion queries
+	- first problem display suggestion list in same screen which holds Movies recyclerView, and solved by 
+	  set this setVisibility for this View to Gone.
+	- Realm Cannot modify managed objects outside of a write transaction, was mistake by me because i was
+	  beginTransaction for Realm object in the init of the Realm instance, solved by set beginTransaction
+	  after init the Realm object.
+
+2- unit test for rxJava:
+	- i have problem to make test path for function which have implementation for rxJava it crashes in
+	  "subscribeOn", and "observeOn", and i solve it by impelment Scheduler for "android", and "process"
+	  and path them into presenter init, so i can init them for test using TestScheduler and path them to
+	  presenter and the test run.

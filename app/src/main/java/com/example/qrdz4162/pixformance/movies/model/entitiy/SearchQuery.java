@@ -9,6 +9,11 @@ import io.realm.RealmObject;
  * Created by qrdz4162 on 2/11/2018.
  */
 
+
+/**
+ * SearchQuery object which represent table that realm create into db
+ */
+
 public class SearchQuery extends RealmObject{
 
     public void setQueryName(String queryName) {

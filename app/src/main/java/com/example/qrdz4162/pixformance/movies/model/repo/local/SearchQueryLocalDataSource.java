@@ -30,7 +30,7 @@ public class SearchQueryLocalDataSource implements MovieListDataSource {
         realm = Realm.getDefaultInstance();
     }
 
-    // MovieListRemoteDataSource single instance instantiation using singleton design pattern
+    // Realm single instance instantiation using singleton design pattern
     public static SearchQueryLocalDataSource getInstance(Context context) {
         if (searchQueryDataSource == null) {
             searchQueryDataSource = new SearchQueryLocalDataSource(context);
@@ -44,6 +44,11 @@ public class SearchQueryLocalDataSource implements MovieListDataSource {
         return null;
     }
 
+    /**
+     * @desc get user last 10 queries (suggestion list) from db using realm
+     * @param
+     * @return list of object of SearchQuery
+     */
     @Override
     public ArrayList<SearchQuery> getRecentQueries() {
         ArrayList<SearchQuery> res = new ArrayList<>();
@@ -60,6 +65,11 @@ public class SearchQueryLocalDataSource implements MovieListDataSource {
         return res;
     }
 
+
+    /**
+     * @desc add search user input to db using realm
+     * @param query search input from user
+     */
     @Override
     public void addQueryToDB(final String query) {
 
